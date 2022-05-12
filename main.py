@@ -5,7 +5,11 @@ def empty_line():
     v = Label(window, text="    ")
     v.pack()
 
-
+def download():
+    if 'playlist' in inputtxt.get(1.0, "end-1c"):
+        yt_downloader.download_playlist(inputtxt.get(1.0, "end-1c"), variable.get(), status)
+    else: 
+        yt_downloader.download_video(inputtxt.get(1.0, "end-1c"), variable.get(), status)   
 window = Tk()
 
 window.title("Youtube Downloader")
@@ -29,7 +33,7 @@ inputtxt.pack()
 
 empty_line()
 
-subm = Button(window, text="Download", command=yt_downloader.download_video)
+subm = Button(window, text="Download", command=download)
 subm.pack()
 
 empty_line()
