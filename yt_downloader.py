@@ -16,11 +16,10 @@ def download_video(url: str, video: str, status):
     if video: yt = yt.streams.get_highest_resolution()
     else: yt = yt.streams.get_lowest_resolution()
     yt.download(VIDEO_FOLDER)
-
+    title = yt.title
     if video is False:
         #removing unwanted symbols from the file name
         symbols = ["/", ".", "\\", "|", "?", "*", ":", "<", ">", '"', "'"] 
-        title = yt.title
         for i in symbols:
             title = title.replace(i, "")
         download_path = VIDEO_FOLDER + title + '.mp4'
@@ -42,4 +41,10 @@ def download_playlist(url: str, video:str, status):
     #getting the playlist and looping through video url's
     p = pytube.Playlist(url)
     for vid_url in p.video_urls:
+        download_video(vid_url, video, status)
+
+def download_channel(url:str, count:int, video:str, status):
+    #getting the chanel and looping through video urls
+    c = pytube.Channel(url)
+    for vid_url in c.video_urls[:count]:
         download_video(vid_url, video, status)

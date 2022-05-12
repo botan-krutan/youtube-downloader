@@ -6,10 +6,13 @@ def empty_line():
     v.pack()
 
 def download():
-    if 'playlist' in inputtxt.get(1.0, "end-1c"):
-        yt_downloader.download_playlist(inputtxt.get(1.0, "end-1c"), variable.get(), status)
+    input = inputtxt.get(1.0, "end-1c")
+    if 'playlist' in input:
+        yt_downloader.download_playlist(input, variable.get(), status)
+    elif ',' in input:
+        yt_downloader.download_channel(input[:input.find(',')], int(input[input.find(',') + 1:]), variable.get(), status)
     else: 
-        yt_downloader.download_video(inputtxt.get(1.0, "end-1c"), variable.get(), status)   
+        yt_downloader.download_video(input, variable.get(), status)   
 window = Tk()
 
 window.title("Youtube Downloader")
